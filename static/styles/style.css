@@ -1,0 +1,60 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 56px; /* Altura da barra de navegação */
+    bottom: 0;
+    left: 0;
+    padding: 48px 0 0; /* Altura da barra de navegação */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.banner {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.banner__titulo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        margin-top: 20px;
+    }
+
+    .footer {
+        position: relative;
+    }
+}

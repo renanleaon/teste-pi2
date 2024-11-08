@@ -1,0 +1,45 @@
+{% extends 'livraria/base.html'%}
+{% load static %}
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="banner">
+        <img src="{% static 'assets/imagens/Banner(2).png'%}" alt="Banner" class="img-fluid">
+        <div class="banner__titulo">Bem-vindo ao Meu Site</div>
+    </div>
+    <section class="galeria">
+        <div class="cards">
+            <h2 class="cards__titulo">Navegue pela galeria</h2>
+            <ul class="cards__lista">
+                {% if cards %}
+                {% for book in cards %}
+                <li class="card">
+                    <a href="imagem.html">
+                        {% if book.cover_image == "" or book.cover_image == null %}
+                        <img class="card__imagem" src="{% static 'assets/imagens/galeria/2.jpg'%}" alt="foto">
+                        {% else %}
+                        <img class="card__imagem" src="{{ book.cover_image.url }}" alt="foto">
+                        {% endif %}
+                    </a>
+                    <span class="card__tag">{{ book.genre_set.first.name }}</span>
+                    <div class="card__info">
+                        <p class="card__titulo">{{ book.title }}</p>
+                        <div class="card__texto">
+                            <p class="card__descricao">{{ book.authors.first }}</p>
+                            <p class="card__preco">R$ {{ book.price|floatformat:2 }}</p>
+                            <span>
+                                <img src="{% static '/assets/ícones/1x/cart_add.ico'%}" alt="ícone de carrinho">
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% else %}
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+</main>
+</div>
+</div>
+
+{% endblock %}

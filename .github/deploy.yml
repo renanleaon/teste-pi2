@@ -1,0 +1,50 @@
+name: 'Deploy para VPS'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Baixar o código'
+        uses: actions/checkout@v4
+
+      - name: 'Preparar o servidor'
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            mkdir -p /home/ubuntu/testegit
+            chmod -R 755 /home/ubuntu/testegit
+
+      - name: 'Copiar arquivos para VPS'
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: '.'
+          target: '/home/ubuntu/testegit'
+          debug: true
+
+      # - name: 'Build da aplicação'
+      #   uses: appleboy/ssh-action@v1.1.0
+      #   with:
+      #     host: '${{ secrets.HOST }}'
+      #     username: '${{ secrets.USERNAME }}'
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd /home/ubuntu/testegit
+      #       python3 -m venv venv
+      #       source venv/bin/activate
+      #       pip install -r requirements.txt
+      #       python3 manage.py check --deploy
+      #       composer install --no-dev --no-progress -a
+      #       php artisan optimize
+      #       chown -R ubuntu:ubuntu .
